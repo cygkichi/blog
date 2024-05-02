@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "ai-agent-wikipedia"
+version = "0.1.0"
+description = ""
+authors = ["cygkichi <9675041+cygkichi@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+langchain = "^0.1.17"
+langchain-anthropic = "^0.1.11"
+wikipedia = "^1.4.0"
+notebook = "^7.1.3"
+python-dotenv = "^1.0.1"
+grandalf = "^0.8"
+langgraph = "^0.0.40"
+langchain-openai = "^0.1.5"
+streamlit = "^1.33.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
