@@ -15,6 +15,7 @@ python-dotenv = "^1.0.1"
 grandalf = "^0.8"
 langgraph = "^0.0.40"
 langchain-openai = "^0.1.5"
+streamlit = "^1.33.0"
 
 
 [build-system]
