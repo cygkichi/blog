@@ -1,0 +1,14 @@
+[project]
+name = "251205-pydantic-evals"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "ipywidgets>=8.1.8",
+    "notebook>=7.5.0",
+    "pydantic>=2.12.5",
+    "pydantic-ai>=1.27.0",
+    "pydantic-evals>=1.27.0",
+    "ruff>=0.14.8",
+]
