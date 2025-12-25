@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIチャット - PydanticAI + HTMX</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>AIチャット</h1>
+            <p class="subtitle">PydanticAI + HTMX デモ</p>
+        </header>
+
+        <div id="chat-container">
+            <div id="messages" class="messages">
+                <div class="message assistant">
+                    こんにちは！何かお手伝いできることはありますか？
+                </div>
+            </div>
+
+            <form id="chat-form">
+                <div class="input-group">
+                    <input type="text"
+                           name="message"
+                           id="message-input"
+                           placeholder="メッセージを入力してください..."
+                           autocomplete="off"
+                           required>
+                    <button type="submit">送信</button>
+                </div>
+            </form>
+        </div>
+
+        <footer>
+            <p>Powered by PydanticAI & HTMX</p>
+        </footer>
+    </div>
+
+    <script>
+    document.getElementById('chat-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const input = document.getElementById('message-input');
+        const messages = document.getElementById('messages');
+        const formData = new FormData();
+        formData.append('message', input.value);
+
+        const response = await fetch('/chat', {
+            method: 'POST',
+            body: formData
+        });
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+
+        while (true) {
+            const {done, value} = await reader.read();
+            if (done) break;
+
+            const text = decoder.decode(value);
+            const lines = text.split('\n');
+            for (const line of lines) {
+                if (line.startsWith('data: ')) {
+                    const html = line.substring(6);
+                    messages.insertAdjacentHTML('beforeend', html);
+                    messages.scrollTop = messages.scrollHeight;
+                }
+            }
+        }
+
+        input.value = '';
+    });
+    </script>
+</body>
+</html>
